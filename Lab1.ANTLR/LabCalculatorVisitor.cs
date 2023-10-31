@@ -54,6 +54,7 @@ namespace LabCalculator
         {
             return Visit(context.expression());
         }
+        // 8,9 
         public override double VisitRelationalExpr(LabCalculatorParser.RelationalExprContext context)
         {
             double left = WalkLeft(context);
@@ -77,13 +78,13 @@ namespace LabCalculator
                     throw new NotSupportedException("Not supported operation: " + context.operatorToken.Text);
             }
         }
-
+        //10
         public override double VisitNotExpr(LabCalculatorParser.NotExprContext context)
         {
             double value = Visit(context.expression());
             return value == 0.0 ? 1.0 : 0.0;
         }
-
+        //11
         public override double VisitLogicalExpr(LabCalculatorParser.LogicalExprContext context)
         {
             double left = WalkLeft(context);
@@ -100,7 +101,7 @@ namespace LabCalculator
             }
         }
 
-       
+        //4
         public override double VisitExponentialExpr(LabCalculatorParser.ExponentialExprContext context)
         {
             var left = WalkLeft(context);
@@ -108,7 +109,7 @@ namespace LabCalculator
             Debug.WriteLine("{0} ^ {1}", left, right);
             return Math.Pow(left, right);
         }
-
+        //1
         public override double VisitAdditiveExpr(LabCalculatorParser.AdditiveExprContext context)
         {
             var left = WalkLeft(context);
@@ -124,7 +125,7 @@ namespace LabCalculator
                 return left - right;
             }
         }
-
+        //1
         public override double VisitMultiplicativeExpr(LabCalculatorParser.MultiplicativeExprContext context)
         {
             var left = WalkLeft(context);
@@ -142,7 +143,7 @@ namespace LabCalculator
         }
 
 
-
+        //2
         public override double VisitModDivExpr(LabCalculatorParser.ModDivExprContext context)
         {
             var left = WalkLeft(context);
@@ -168,48 +169,48 @@ namespace LabCalculator
                 return left / right;
             }
         }
-
+        //3
         public override double VisitUnaryMinusExpr(LabCalculatorParser.UnaryMinusExprContext context)
         {
             return -Visit(context.expression());
         }
-
+        //5
         public override double VisitIncrementExpr(LabCalculatorParser.IncrementExprContext context)
         {
             return Visit(context.expression()) + 1;
         }
-
+        //5
         public override double VisitDecrementExpr(LabCalculatorParser.DecrementExprContext context)
         {
             return Visit(context.expression()) - 1;
         }
-
+        //6
         public override double VisitMaxExpr(LabCalculatorParser.MaxExprContext context)
         {
             var left = Visit(context.expression(0));
             var right = Visit(context.expression(1));
             return Math.Max(left, right);
         }
-
+        //6
         public override double VisitMinExpr(LabCalculatorParser.MinExprContext context)
         {
             var left = Visit(context.expression(0));
             var right = Visit(context.expression(1));
             return Math.Min(left, right);
         }
-
+        //7
         public override double VisitMultiMaxExpr(LabCalculatorParser.MultiMaxExprContext context)
         {
             var values = context.expression().Select(expr => Visit(expr));
             return values.Max();
         }
-
+        //7
         public override double VisitMultiMinExpr(LabCalculatorParser.MultiMinExprContext context)
         {
             var values = context.expression().Select(expr => Visit(expr));
             return values.Min();
         }
-
+        //12
         public override double VisitEqvExpr(LabCalculatorParser.EqvExprContext context)
         {
             double left = Visit(context.expression(0));
